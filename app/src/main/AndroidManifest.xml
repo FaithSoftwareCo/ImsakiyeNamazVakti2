@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.faith.namazvakti">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/applicationName"
+        android:supportsRtl="true"
+        android:theme="@style/MuezzinTheme"
+        tools:replace="android:label">
+
+        <activity
+            android:name="com.faith.namazvakti.activities.PrayerTimesActivity"
+            android:launchMode="singleTop">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.faith.namazvakti.activities.WelcomeActivity"
+            android:theme="@style/MuezzinWelcomeTheme" />
+
+        <activity android:name="com.faith.namazvakti.activities.PlaceSelectionActivity" />
+
+        <activity android:name="com.faith.namazvakti.activities.preferences.PreferencesActivity" />
+
+        <activity android:name="com.faith.namazvakti.activities.preferences.ReminderPreferencesActivity" />
+
+        <activity
+            android:name="com.faith.namazvakti.activities.LicencesActivity"
+            android:label="@string/preferences_more_openSource" />
+
+        <service
+            android:name="com.faith.namazvakti.services.PrayerTimeReminderService"
+            android:exported="false" />
+
+        <service
+            android:name="com.faith.namazvakti.services.PrayerTimesUpdaterService"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.faith.namazvakti.broadcastreceivers.PrayerTimeReminderBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.faith.namazvakti.broadcastreceivers.BootCompletedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.faith.namazvakti.widgetproviders.PrayerTimesHorizontalWidget" android:label="@string/widgets_prayertimes_horizontal_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_prayertimes_horizontal" />
+        </receiver>
+
+        <receiver android:name="com.faith.namazvakti.widgetproviders.PrayerTimesVerticalWidget" android:label="@string/widgets_prayertimes_vertical_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_prayertimes_vertical" />
+        </receiver>
+
+        <receiver android:name="com.faith.namazvakti.widgetproviders.PrayerTimesBigWidget" android:label="@string/widgets_prayertimes_big_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_prayertimes_big" />
+        </receiver>
+
+        <service
+            android:name="com.faith.namazvakti.services.WidgetUpdaterService"
+            android:exported="false" />
+    </application>
+</manifest>
